@@ -4,11 +4,14 @@ const apiClient = axios.create({
     baseURL: "https://nc-news-rvfa.onrender.com/api"
 })
 
-export const getArticles = () => {
+export const getArticles = (params) => {
     return apiClient
-    .get(`/articles`)
-    .then(({ data: {articles}})=> {
-        return articles;
+    .get(`/articles`, {params: { 
+        p: params.page,
+        limit: params.limit
+        }} )
+    .then(({ data: {articles, total_count}})=> {
+        return {articles, total_count};
     })
     .catch((err)=>{
         console.log(err)
