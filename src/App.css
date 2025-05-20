@@ -4,5 +4,21 @@
   padding: 2rem;
   text-align: center;
 }
+ul {
+  list-style-type: none;
+}
 
+.info-card {
+  display: block;
+  width: 90%;
+  align-self: center;
+  text-align: left;
+  font-size: small;
+  border: 2px solid;
+  padding-left: 10px;
+  margin: 15px;
+}
 
+.info-card-title {
+  font-weight: bold;
+}

@@ -26,10 +26,10 @@ return (
     {isLoading ? <p> Loading Articles...</p> : 
     
     <section>
-        <ul>
+        <ul >
             {articlesToList.map((article)=>{
                 return (
-                <li key={article.article_id}>
+                <li key={article.article_id} className="info-card">
                     <ArticleInfoCard articleToDisplay={article}/>
                 </li>)
                 

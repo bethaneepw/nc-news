@@ -1,15 +1,17 @@
+import { formatArticleInfo } from "../../utils/utils";
+
 function ArticleInfoCard ({articleToDisplay}) {
 
-    const formattedArticleDisplay = {...articleToDisplay,
-        topic: articleToDisplay.topic.charAt(0).toUpperCase() + articleToDisplay.topic.slice(1)
-    }
+    const formattedArticle = formatArticleInfo(articleToDisplay)
 
     return (
         <>
-        <h4>{formattedArticleDisplay.title}</h4>
-        <h5>{formattedArticleDisplay.topic}</h5>
-
+            <p className="info-card-title">{formattedArticle.title}</p>
+            <p>{formattedArticle.topic}</p>
+            <p>Posted: {formattedArticle.created_at}<br/>{formattedArticle.comment_count} comments <br/>{formattedArticle.votes} votes</p>
+            <p>{formattedArticle.author}</p>
         </>
+        
     )
 }
 
