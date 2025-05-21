@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../../api";
 import ArticleInfoCard from "./ArticleInfoCard";
+import { Link } from "react-router-dom";
 
 function ArticlesList () {
 const [isLoading, setIsLoading] = useState(true)

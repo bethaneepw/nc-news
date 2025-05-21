@@ -17,3 +17,14 @@ export const getArticles = (params) => {
         console.log(err)
     })
 }
+
+export const getArticleById = (article_id) => {
+    return apiClient
+    .get(`/articles/${article_id}`)
+    .then(({ data: {article}})=> {
+        return article;
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
