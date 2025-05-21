@@ -38,7 +38,7 @@ return (<>
     <div className="article-content-container"></div>
     <h2>Written by {currentArticle.author}</h2>
     <p>{currentArticle.body}</p>
-    <button id="view-comments-button" onClick={()=>{setIsViewingComments((viewing)=>!viewing)}}>View Comments {currentArticle.comment_count}</button>
+    <button id="view-comments-button" onClick={()=>{setIsViewingComments((viewing)=>!viewing)}}>{isViewingComments ? `Hide ${currentArticle.comment_count} Comments` : `View ${currentArticle.comment_count} Comments`} </button>
     <button id="votes-button" disabled>{currentArticle.votes} Votes</button>
 </section> 
 <section>{isViewingComments ? 
