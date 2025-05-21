@@ -21,6 +21,8 @@ function ArticleViewCard () {
             setIsLoading(false)
         })
     }, [article_id])
+
+    console.log(currentArticle)
     
 return (
 <section className="article-container">
@@ -29,9 +31,8 @@ return (
     <div className="article-content-container"></div>
     <h2>Written by {currentArticle.author}</h2>
     <p>{currentArticle.body}</p>
-    <button id="view-comments-button">View Comments {currentArticle.comment_Count}</button>
-    
-    <button id="votes">^</button>
+    <button id="view-comments-button" disabled>View Comments {currentArticle.comment_count}</button>
+    <button id="votes-button" disabled>{currentArticle.votes} Votes</button>
     
 </section>)
 }
