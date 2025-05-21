@@ -1,9 +1,12 @@
-export function formatArticleInfo (article) {
+export function formatResponseInfo (dataToFormat) {
 
-    const formattedArticle = {...article}
-    formattedArticle.topic = article.topic.charAt(0).toUpperCase() + article.topic.slice(1)
-    const date = new Date(formattedArticle.created_at)
-    formattedArticle.created_at = `${date.toLocaleString()}`
-    return formattedArticle;
+    const formattedData = {...dataToFormat}
+
+    if (dataToFormat.topic) {
+        formattedData.topic = dataToFormat.topic.charAt(0).toUpperCase() + dataToFormat.topic.slice(1)
+    }
+    const date = new Date(formattedData.created_at)
+    formattedData.created_at = `${date.toLocaleString()}`
+    return formattedData;
 
 }

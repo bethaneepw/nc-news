@@ -28,3 +28,15 @@ export const getArticleById = (article_id) => {
         console.log(err)
     })
 }
+
+// Currently not supporting comment pagination
+export const getCommentsByArticleId = (article_id) => {
+    return apiClient
+    .get(`/articles/${article_id}/comments`)
+    .then(({ data: {comments}})=> {
+        return comments;
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}

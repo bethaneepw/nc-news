@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { formatArticleInfo } from "../../utils/utils";
+import { formatResponseInfo } from "../../utils/utils";
 
 function ArticleInfoCard ({articleToDisplay}) {
 
-    const formattedArticle = formatArticleInfo(articleToDisplay)
+    const formattedArticle = formatResponseInfo(articleToDisplay)
     return (
         <>
             <p className="info-card-title">{formattedArticle.title}</p>

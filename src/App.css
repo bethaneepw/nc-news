@@ -52,3 +52,10 @@ h1 {
     padding: 20px;
   }
 }
+
+.comments-container {
+  display: flexbox;
+  align-self: center;
+  max-width: 90%;
+  
+}
