@@ -37,10 +37,9 @@ export const getCommentsByArticleId = (article_id) => {
         return comments;
     })
     .catch((err)=>{
-        return (err)
+        return(err)
     })
 }
-
 
 export const patchArticleById = (article_id, inc) => {
     return apiClient
@@ -49,7 +48,17 @@ export const patchArticleById = (article_id, inc) => {
             return article;
         })
         .catch((err)=>{
-            console.log(err)
+            return (err)
         })
 }
 
+export const postComment = (article_id, commentInfo) => {
+    return apiClient
+    .post(`/articles/${article_id}/comments`, commentInfo)
+    .then(({data : {comment}})=>{
+        return comment;
+    })
+    .catch((err)=>{
+        return (err)
+    })
+}
