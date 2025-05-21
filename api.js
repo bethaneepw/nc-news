@@ -37,6 +37,19 @@ export const getCommentsByArticleId = (article_id) => {
         return comments;
     })
     .catch((err)=>{
-        console.log(err)
+        return (err)
     })
 }
+
+
+export const patchArticleById = (article_id, inc) => {
+    return apiClient
+        .patch(`/articles/${article_id}`, inc)
+        .then(({ data: {article}})=>{
+            return article;
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+}
+

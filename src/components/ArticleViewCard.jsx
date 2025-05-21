@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getArticleById } from "../../api";
+import { getArticleById, patchArticleById } from "../../api";
 import { formatResponseInfo } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import CommentsView from "./CommentsView";
@@ -10,8 +10,12 @@ function ArticleViewCard () {
     const [isLoading, setIsLoading] = useState(true)
     const [currentArticle, setCurrentArticle] = useState({})
     const [isViewingComments, setIsViewingComments] = useState(false)
+    const [hasVoted, setHasVoted] = useState(false)
+    const [localVotes, setLocalVotes] = useState(0)
+    const [errorMsg, setErrorMsg] = useState(null)
 
     useEffect(()=>{
+        setErrorMsg(null)
         setIsLoading(true)
         getArticleById(article_id)
         .then((article) => {
@@ -24,6 +28,20 @@ function ArticleViewCard () {
             setIsLoading(false)
         })
     }, [article_id])
+
+    function handleVote (event) {
+
+        setLocalVotes(Number(event.target.value))
+        setHasVoted(true)
+        patchArticleById(article_id, {inc_votes : Number(event.target.value)})
+        .then((article) => {
+            console.log("successful patch (article view card.jsx)")
+        })
+        .catch((err)=>{
+            setErrorMsg("Something went wrong. Your vote has not been counted.")
+            console.log(err)
+        })
+    }
 
     if (isLoading) {
         return ( 
@@ -38,8 +56,19 @@ return (<>
     <div className="article-content-container"></div>
     <h2>Written by {currentArticle.author}</h2>
     <p>{currentArticle.body}</p>
-    <button id="view-comments-button" onClick={()=>{setIsViewingComments((viewing)=>!viewing)}}>{isViewingComments ? `Hide ${currentArticle.comment_count} Comments` : `View ${currentArticle.comment_count} Comments`} </button>
-    <button id="votes-button" disabled>{currentArticle.votes} Votes</button>
+    <div className="comment-button-group">
+        <button id="view-comments-button" onClick={()=>{setIsViewingComments((viewing)=>!viewing)}}>{isViewingComments ? `Hide ${currentArticle.comment_count} Comments` : `View ${currentArticle.comment_count} Comments`} </button></div>
+   
+    <div className="vote-button-group">
+        <p>{currentArticle.votes + localVotes} Votes</p>
+        {hasVoted ? errorMsg ? <p> {errorMsg} </p> : <p> Thanks for voting! </p>
+        : <>
+        <button id="votes-button" onClick={handleVote} value="1"> + </button>
+        <button id="votes-button" onClick={handleVote} value="-1"> - </button>
+        </>
+        }
+    </div>
+    
 </section> 
 <section>{isViewingComments ? 
     <>
