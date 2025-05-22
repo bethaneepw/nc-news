@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { getCommentsByArticleId } from "../../api";
 import { formatResponseInfo } from "../../utils/utils";
 import CommentCard from "./CommentCard";
-import PostArticleForm from "./PostArticleForm";
 import PostCommentForm from "./PostCommentForm";
 import { UserContext } from "../../UserContext";
 

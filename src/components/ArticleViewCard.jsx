@@ -3,8 +3,6 @@ import { getArticleById, patchArticleById } from "../../api";
 import { formatResponseInfo } from "../../utils/utils";
 import { useParams } from "react-router-dom";
 import CommentsView from "./CommentsView";
-import PostCommentForm from "./PostCommentForm";
-
 
 function ArticleViewCard () {
     const {article_id} = useParams()
