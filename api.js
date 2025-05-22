@@ -8,7 +8,8 @@ export const getArticles = (params) => {
     return apiClient
     .get(`/articles`, {params: { 
         p: params.page,
-        limit: params.limit
+        limit: params.limit,
+        topic: params.topic
         }} )
     .then(({ data: {articles, total_count}})=> {
         return {articles, total_count};
