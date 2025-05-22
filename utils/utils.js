@@ -12,10 +12,7 @@ export function formatResponseInfo (dataToFormat) {
 }
 
 // Refactors lower case to have capital letter at start
-export function formatTopics (topicsArray) {
-    const formatted = topicsArray.map((topic) => {
-        return topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)
-    })
-    
-    return formatted;
+export function formatTopic (topicTitle) {
+        return topicTitle.charAt(0).toUpperCase() + topicTitle.slice(1)
+  
 }
