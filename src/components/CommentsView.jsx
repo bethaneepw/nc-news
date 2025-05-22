@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCommentsByArticleId } from "../../api";
 import { formatResponseInfo } from "../../utils/utils";
 import CommentCard from "./CommentCard";
 import PostArticleForm from "./PostArticleForm";
 import PostCommentForm from "./PostCommentForm";
+import { UserContext } from "../../UserContext";
 
 // Currently not supporting pagination for comments
 function CommentsView ({article_id, comment_count, isAddingComment}) {
@@ -11,13 +12,17 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
    const [commentsList, setCommentsList] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
    const [totalCount, setTotalCount] = useState(comment_count)
-
+   const [user] = useContext(UserContext)
+    
     useEffect(()=>{
         setIsLoading(true)
         getCommentsByArticleId(article_id)
         .then((comments)=>{
             const arr = comments.map((comment) =>{
                 const obj = formatResponseInfo(comment)
+                if (user.username === obj.author) {
+                    obj.hasPermissions = true;
+                } else obj.hasPermissions = false;
                 return obj;
             })
             setCommentsList(arr)

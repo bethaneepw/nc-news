@@ -37,7 +37,6 @@ function ArticleViewCard () {
         setHasVoted(true)
         patchArticleById(article_id, {inc_votes : Number(event.target.value)})
         .then((article) => {
-            console.log("successful patch (article view card.jsx)")
         })
         .catch((err)=>{
             setErrorMsg("Something went wrong. Your vote has not been counted.")
