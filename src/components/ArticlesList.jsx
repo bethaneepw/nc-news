@@ -13,9 +13,11 @@ const [searchParams, setSearchParams] = useSearchParams();
 
 useEffect(()=>{
     setIsLoading(true)
+
     // const sort_by = searchParams.get('sort')
     // const order = searchParams.get('order')
-    const topic = searchParams.get('topic').toLowerCase()
+    const topic = searchParams.get('topic')
+   
     getArticles({page, limit, topic})
     .then(({articles, total_count})=>{
         setArticlesToList(articles)

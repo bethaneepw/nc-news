@@ -74,3 +74,14 @@ export const deleteComment = (comment_id) => {
         return Promise.reject(err);
     })
 }
+
+export const getTopics = () => {
+    return apiClient
+    .get("/topics")
+    .then(({data : {topics}})=>{
+        return topics;
+    })
+     .catch((err)=>{
+        return Promise.reject(err);
+    })
+}
