@@ -12,6 +12,7 @@ const [totalCount, setTotalCount] = useState(null)
 const [searchParams, setSearchParams] = useSearchParams();
 const [sort, setSort] = useState("created_at")
 const [order, setOrder] = useState("DESC")
+
 useEffect(()=>{
     setIsLoading(true)
     const topic = searchParams.get('topic')
@@ -68,11 +69,6 @@ return (
         </select>
             <button onClick={handleFilter}>Filter</button>
         
-    </div>
-   
-    {isLoading ? <p> Loading Articles...</p> : 
-    
-    <section>
         <label htmlFor="limit">Viewing: </label>
         <select name="limit" defaultValue={limit} onChange={handleLimit}>
             <option value="5">5</option>
@@ -80,6 +76,12 @@ return (
             <option value="20">20</option>
             <option value="50">50</option>
         </select>
+    </div>
+   
+    {isLoading ? <p> Loading Articles...</p> : 
+    
+    <section>
+        
 
         <ul >
             {articlesToList.map((article)=>{
