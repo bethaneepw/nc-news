@@ -57,12 +57,8 @@ return (<>
     <img src={currentArticle.article_img_url}></img>
     <div className="article-content-container"></div>
     <h2>Written by {currentArticle.author}</h2>
-    <p>{currentArticle.body}</p>
-    <div className="comment-button-group">
-        <button id="view-comments-button" onClick={()=>{setIsViewingComments((viewing)=>!viewing)}}>{isViewingComments ? `Hide ${currentArticle.comment_count} Comments` : `View ${currentArticle.comment_count} Comments`} </button>
-        {isAddingComment ? <></> : <button onClick={(()=>{setIsAddingComment(true)})}>Add comment</button> }
-        </div>
-   
+    <p>{currentArticle.body}</p>    
+    
     <div className="vote-button-group">
         <p>{currentArticle.votes + localVotes} Votes</p>
         {hasVoted ? errorMsg ? <p> {errorMsg} </p> : <p> Thanks for voting! </p>
@@ -72,13 +68,23 @@ return (<>
         </>
         }
     </div>
+    <div className="comment-button-group">
+        <button id="view-comments-button" onClick={()=>{
+            setIsViewingComments((viewing)=>!viewing)
+            setIsAddingComment(false)
+        }}>{isViewingComments ? `Hide ${currentArticle.comment_count} Comments` : `View ${currentArticle.comment_count} Comments`} </button>
+        <button onClick={(()=>{
+            setIsAddingComment(adding => !adding)
+            setIsViewingComments(true)})}>{isAddingComment ? "Cancel" : "Add comment"}</button>
+        </div>
+   
+
     
 </section> 
 <section>
-    <PostCommentForm/>
     {isViewingComments ? 
     <>
-    <CommentsView article_id={currentArticle.article_id} comment_count={currentArticle.comment_count}/>
+    <CommentsView article_id={currentArticle.article_id} comment_count={currentArticle.comment_count} isAddingComment={isAddingComment}/>
     </> 
     : <> </>}</section>
 </>)

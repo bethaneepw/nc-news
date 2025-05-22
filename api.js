@@ -53,12 +53,13 @@ export const patchArticleById = (article_id, inc) => {
 }
 
 export const postComment = (article_id, commentInfo) => {
+    console.log(article_id)
     return apiClient
     .post(`/articles/${article_id}/comments`, commentInfo)
     .then(({data : {comment}})=>{
         return comment;
     })
     .catch((err)=>{
-        return (err)
+        return Promise.reject(err)
     })
 }
