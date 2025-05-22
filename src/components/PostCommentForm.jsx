@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import { postComment } from "../../api"
+import { UserContext } from "../../UserContext"
 
 function PostCommentForm ({article_id, setCommentsList}) {
 
@@ -7,10 +8,12 @@ const [hasSubmitted, setHasSubmitted] = useState(false)
 const [postMessage, setPostMessage] = useState("Comment pending...")
 let body = ""
 
+const [user] = useContext(UserContext)
+
 function handleCommentSubmit(event) {
     event.preventDefault()
     setHasSubmitted(true)
-    postComment(article_id, {username: "grumpy19", body: body})
+    postComment(article_id, {username: user.username, body: body})
     .then((comment)=>{
         setPostMessage("Comment successfully added.")
         setCommentsList((prevCommentList) => {
