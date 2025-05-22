@@ -14,7 +14,7 @@ export const getArticles = (params) => {
         return {articles, total_count};
     })
     .catch((err)=>{
-        console.log(err)
+        return Promise.reject(err);
     })
 }
 
@@ -25,7 +25,7 @@ export const getArticleById = (article_id) => {
         return article;
     })
     .catch((err)=>{
-        console.log(err)
+        return Promise.reject(err);
     })
 }
 
@@ -37,7 +37,7 @@ export const getCommentsByArticleId = (article_id) => {
         return comments;
     })
     .catch((err)=>{
-        return(err)
+        return Promise.reject(err);
     })
 }
 
@@ -48,12 +48,11 @@ export const patchArticleById = (article_id, inc) => {
             return article;
         })
         .catch((err)=>{
-            return (err)
+            return Promise.reject(err);
         })
 }
 
 export const postComment = (article_id, commentInfo) => {
-    console.log(article_id)
     return apiClient
     .post(`/articles/${article_id}/comments`, commentInfo)
     .then(({data : {comment}})=>{
@@ -61,5 +60,16 @@ export const postComment = (article_id, commentInfo) => {
     })
     .catch((err)=>{
         return Promise.reject(err)
+    })
+}
+
+export const deleteComment = (comment_id) => {
+    return apiClient
+    .delete(`/comments/${comment_id}`)
+    .then(()=> {
+        return;
+    })
+    .catch((err)=>{
+        return Promise.reject(err);
     })
 }
