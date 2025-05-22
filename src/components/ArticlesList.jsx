@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../../api";
 import ArticleInfoCard from "./ArticleInfoCard";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 function ArticlesList () {
 const [isLoading, setIsLoading] = useState(true)
@@ -9,10 +9,16 @@ const [articlesToList, setArticlesToList] = useState(null)
 const [page, setPage] = useState(1)
 const [limit, setLimit] = useState(10)
 const [totalCount, setTotalCount] = useState(null)
+const [searchParams, setSearchParams] = useSearchParams();
 
 useEffect(()=>{
     setIsLoading(true)
-    getArticles({page, limit})
+
+    // const sort_by = searchParams.get('sort')
+    // const order = searchParams.get('order')
+    const topic = searchParams.get('topic')
+   
+    getArticles({page, limit, topic})
     .then(({articles, total_count})=>{
         setArticlesToList(articles)
         setTotalCount(total_count)
@@ -23,7 +29,7 @@ useEffect(()=>{
     .finally(()=>{
         setIsLoading(false)
     })
-}, [page, limit])
+}, [page, limit, searchParams])
 
 function handleLimit(event) {
 setLimit(event.target.value)
@@ -31,6 +37,12 @@ setLimit(event.target.value)
 
 return (
     <>
+    <div className="topic-button-group">
+    <Link to="/articles?topic=cooking"><button>Cooking</button></Link>
+    <Link to="/articles?topic=coding"><button>Coding</button></Link>
+    <Link to="/articles?topic=football"><button>Football</button></Link>
+    </div>
+   
     {isLoading ? <p> Loading Articles...</p> : 
     
     <section>

@@ -8,7 +8,8 @@ export const getArticles = (params) => {
     return apiClient
     .get(`/articles`, {params: { 
         p: params.page,
-        limit: params.limit
+        limit: params.limit,
+        topic: params.topic
         }} )
     .then(({ data: {articles, total_count}})=> {
         return {articles, total_count};
@@ -70,6 +71,17 @@ export const deleteComment = (comment_id) => {
         return;
     })
     .catch((err)=>{
+        return Promise.reject(err);
+    })
+}
+
+export const getTopics = () => {
+    return apiClient
+    .get("/topics")
+    .then(({data : {topics}})=>{
+        return topics;
+    })
+     .catch((err)=>{
         return Promise.reject(err);
     })
 }
