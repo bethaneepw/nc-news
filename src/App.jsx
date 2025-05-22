@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
@@ -10,6 +10,8 @@ import UsersList from './components/UsersList'
 import PostArticleForm from './components/PostArticleForm'
 
 function App() {
+
+  // const [currentUser, setCurrentUser] = useState({username: "grumpy19", name: "Paul Grump", avatar_url: "https://vignette.wikia.nocookie.net/mrmen/images/7/78/Mr-Grumpy-3A.PNG/revision/latest?cb=20170707233013"})
   
   return (
     <>
@@ -27,7 +29,6 @@ function App() {
     <Route path="/articles/submit" element={<PostArticleForm/>}/>
       </Routes>
     </section>
-   
     </>
   )
 }
