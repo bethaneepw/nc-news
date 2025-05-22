@@ -76,8 +76,6 @@ return (<>
             setIsAddingComment(adding => !adding)
             setIsViewingComments(true)})}>{isAddingComment ? "Cancel" : "Add comment"}</button>
         </div>
-   
-
     
 </section> 
 <section>

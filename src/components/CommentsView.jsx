@@ -11,7 +11,7 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
 
    const [commentsList, setCommentsList] = useState([]);
    const [isLoading, setIsLoading] = useState(true);
-   const [totalCount, setTotalCount] = useState(comment_count)
+   // const [totalCount, setTotalCount] = useState(comment_count)
    const [user] = useContext(UserContext)
     
     useEffect(()=>{
@@ -36,8 +36,7 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
     }, [])
 
     return (
-        <>
-        <section>
+        <> {isLoading ? <p>"Loading comments..."</p>: <section>
         <ul className="comments-container">
             {isAddingComment ? <PostCommentForm article_id={article_id} setCommentsList={setCommentsList}/> : <></>}
         {commentsList.map((comment)=>{
@@ -48,7 +47,8 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
             
         })}
         </ul>
-        </section>
+        </section>}
+        
         </>
         
     )
