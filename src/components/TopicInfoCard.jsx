@@ -1,9 +1,11 @@
+import { formatTopic } from "../../utils/utils";
+
 function TopicInfoCard ({topic}) {
 
-   // const formattedSlug = topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)
+const formattedTitle = formatTopic(topic.slug)
 return (
     <>
-    <h2>{topic.slug}</h2>
+    <h2>{formattedTitle}</h2>
     <p>{topic.description}</p>
     </>
 )

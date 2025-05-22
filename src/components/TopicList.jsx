@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { getTopics } from "../../api"
 import TopicInfoCard from "./TopicInfoCard"
-import { formatTopics } from "../../utils/utils"
 import { Link } from "react-router-dom"
 
 function TopicsList () {

@@ -9,7 +9,9 @@ export const getArticles = (params) => {
     .get(`/articles`, {params: { 
         p: params.page,
         limit: params.limit,
-        topic: params.topic
+        topic: params.topic,
+        sort_by: params.sort,
+        order: params.order,
         }} )
     .then(({ data: {articles, total_count}})=> {
         return {articles, total_count};
