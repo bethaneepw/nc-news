@@ -12,9 +12,11 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
    const [isLoading, setIsLoading] = useState(true);
    // const [totalCount, setTotalCount] = useState(comment_count)
    const [user] = useContext(UserContext)
+   const [errorMsg, setErrorMsg] = useState(null)
     
     useEffect(()=>{
         setIsLoading(true)
+        setErrorMsg(null)
         getCommentsByArticleId(article_id)
         .then((comments)=>{
             const arr = comments.map((comment) =>{
@@ -27,7 +29,7 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
             setCommentsList(arr)
         })
         .catch((err)=>{
-            console.log(err)
+            setErrorMsg("Not Found")
         })
         .finally(()=>{
             setIsLoading(false)
@@ -35,7 +37,7 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
     }, [])
 
     return (
-        <> {isLoading ? <p>"Loading comments..."</p>: <section>
+        <> {isLoading ? <p>"Loading comments..."</p>: errorMsg ? <h1>{errorMsg}</h1>: <section>
         <ul className="comments-container">
             {isAddingComment ? <PostCommentForm article_id={article_id} setCommentsList={setCommentsList}/> : <></>}
         {commentsList.map((comment)=>{
