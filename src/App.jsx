@@ -9,6 +9,7 @@ import TopicsList from './components/TopicList'
 import UsersList from './components/UsersList'
 import PostArticleForm from './components/PostArticleForm'
 import { UserContext } from '../UserContext'
+import { ErrorCard } from './components/ErrorCard'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/articles/:topic" element={<ArticlesList/>}/>
           <Route path="/users" element={<UsersList/>}/>
           <Route path="/articles/submit" element={<PostArticleForm/>}/>
+          <Route path ="/*" element={<ErrorCard/>}/>
         </Routes>
       </section>
     </UserContext.Provider>

@@ -12,9 +12,11 @@ const [totalCount, setTotalCount] = useState(null)
 const [searchParams, setSearchParams] = useSearchParams();
 const [sort, setSort] = useState("created_at")
 const [order, setOrder] = useState("DESC")
+const [errorMsg, setErrorMsg] = useState(null)
 
 useEffect(()=>{
     setIsLoading(true)
+    setErrorMsg(null)
     const topic = searchParams.get('topic')
     getArticles({page, limit, topic, sort, order})
     .then(({articles, total_count})=>{
@@ -22,7 +24,7 @@ useEffect(()=>{
         setTotalCount(total_count)
     })
     .catch((err)=>{
-        console.log(err)
+        setErrorMsg("Not Found")
     })
     .finally(()=>{
         setIsLoading(false)
@@ -78,8 +80,7 @@ return (
         </select>
     </div>
    
-    {isLoading ? <p> Loading Articles...</p> : 
-    
+    {isLoading ? <p> Loading Articles...</p> : errorMsg ? <h1>{errorMsg}</h1> :
     <section>
         
 

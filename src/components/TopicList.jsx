@@ -6,15 +6,17 @@ import { Link } from "react-router-dom"
 function TopicsList () {
 const [isLoading, setIsLoading] = useState(true)
 const [topicsToList, setTopicsToList] = useState(null)
+const [errorMsg, setErrorMsg] = useState(null)
 
     useEffect(()=>{
             setIsLoading(true)
+            setErrorMsg(null)
             getTopics()
             .then((topics) => {
             setTopicsToList(topics) 
             })
             .catch((err)=>{
-                console.log(err)
+                setErrorMsg("Not Found")
             })
             .finally(()=>{
                 setIsLoading(false)
@@ -22,10 +24,10 @@ const [topicsToList, setTopicsToList] = useState(null)
         }, [])
     
         return (
-            <> {isLoading ? <p>Loading Topics...</p> :
+            <> {isLoading ? <p>Loading Topics...</p> : errorMsg ? <h1>{errorMsg}</h1>:
                 <ul>
                     {topicsToList.map((topic)=>{
-                    return <li>
+                    return <li key={topic.slug}>
                         <Link to={`/articles?topic=${topic.slug}`}>
                         <TopicInfoCard topic={topic}/>
                         </Link>
