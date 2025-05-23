@@ -11,8 +11,7 @@ export function formatResponseInfo (dataToFormat) {
 
 }
 
-// Refactors lower case to have capital letter at start
-export function formatTopic (topicTitle) {
-        return topicTitle.charAt(0).toUpperCase() + topicTitle.slice(1)
+export function capitaliseFirstLetter (text) {
+        return text.charAt(0).toUpperCase() + text.slice(1)
   
 }

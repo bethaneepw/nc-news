@@ -6,6 +6,7 @@ function PostCommentForm ({article_id, setCommentsList}) {
 
 const [hasSubmitted, setHasSubmitted] = useState(false)
 const [postMessage, setPostMessage] = useState("Comment pending...")
+const [hasContent, setHasContent] = useState(false)
 let body = ""
 
 const [user] = useContext(UserContext)
@@ -28,6 +29,11 @@ function handleCommentSubmit(event) {
 
 function handleBodyInput(event) {
     body = event.target.value
+    if (!body) {
+        setHasContent(false)
+    } else {
+        setHasContent(true)
+    }
 }
 
 
@@ -37,9 +43,9 @@ return (
     : 
     <form onSubmit={handleCommentSubmit}>
         <label htmlFor="comment_body">Your Comment:
-            <input type="text" id="comment_body" placeholder="Type your comment here"  onBlurCapture={handleBodyInput}></input>
+            <input type="text" id="comment_body" placeholder="Type your comment here"  onChange={handleBodyInput}></input>
         </label>
-        <input type="submit" value="Submit"></input>       
+        <input type="submit" value="Submit" disabled={!hasContent}></input>       
     </form>}
     </>
 )

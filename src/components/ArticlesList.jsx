@@ -6,55 +6,82 @@ import { Link, useSearchParams } from "react-router-dom";
 function ArticlesList () {
 const [isLoading, setIsLoading] = useState(true)
 const [articlesToList, setArticlesToList] = useState(null)
-const [page, setPage] = useState(1)
-const [limit, setLimit] = useState(10)
 const [totalCount, setTotalCount] = useState(null)
 const [searchParams, setSearchParams] = useSearchParams();
-const [sort, setSort] = useState("created_at")
-const [order, setOrder] = useState("DESC")
+const [errorMsg, setErrorMsg] = useState(null)
+
+
+    const topic = searchParams.get("topic");
+    const sort = searchParams.get("sort") || "created_at";
+    const order = searchParams.get("order") || "DESC";
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
 
 useEffect(()=>{
     setIsLoading(true)
-    const topic = searchParams.get('topic')
+    setErrorMsg(null)
     getArticles({page, limit, topic, sort, order})
     .then(({articles, total_count})=>{
+        if (articles.length === 0 && topic) {
+            setErrorMsg(`No articles found under the topic "${topic}"`)
+        }
         setArticlesToList(articles)
         setTotalCount(total_count)
     })
     .catch((err)=>{
-        console.log(err)
+        setErrorMsg("Not Found")
     })
     .finally(()=>{
         setIsLoading(false)
     })
-}, [page, limit, searchParams])
+}, [searchParams])
 
 function handleLimit(event) {
-setLimit(event.target.value)
+setSearchParams({
+        ...Object.fromEntries(searchParams),
+        limit: event.target.value,
+        page: 1
+    });
 }
 
 function handleSort(event) {
-setSort(event.target.value)
+setSearchParams({
+        ...Object.fromEntries(searchParams),
+        sort: event.target.value,
+        page: 1
+    });
 }
 
 function handleOrder(event) {
-setOrder(event.target.value)
+setSearchParams({
+        ...Object.fromEntries(searchParams),
+        order: event.target.value,
+        page: 1
+    });
 }
 
 function handleFilter () {
         setSearchParams({
             ...Object.fromEntries(searchParams),
             sort,
-            order
+            order,
+            page: 1
         });
     };
 
+function handlePage(newPage) {
+        setSearchParams({
+        ...Object.fromEntries(searchParams),
+        page: newPage
+    });
+};
+    
 return (
     <>
     <div className="topic-button-group">
-    <Link to="/articles?topic=cooking"><button>Cooking</button></Link>
-    <Link to="/articles?topic=coding"><button>Coding</button></Link>
-    <Link to="/articles?topic=football"><button>Football</button></Link>
+    <Link to="/articles?topic=cooking">Cooking</Link>
+    <Link to="/articles?topic=coding">Coding</Link>
+    <Link to="/articles?topic=football">Football</Link>
     </div>
 
     <div className="sort-button-group">
@@ -78,8 +105,7 @@ return (
         </select>
     </div>
    
-    {isLoading ? <p> Loading Articles...</p> : 
-    
+    {isLoading ? <p> Loading Articles...</p> : errorMsg ? <h1>{errorMsg}</h1> :
     <section>
         
 
@@ -93,15 +119,14 @@ return (
             })}
         </ul>
      
-        <button onClick={()=> setPage((currentPage) => currentPage - 1)} disabled={page===1}>Previous</button>
-        <button onClick={()=> setPage((currentPage) => currentPage + 1)} disabled={limit * page >= totalCount}>Next</button>
+        <button onClick={() => handlePage(page - 1)} disabled={page===1}>Previous</button>
+        <button onClick={()=> handlePage(page + 1)} disabled={limit * page >= totalCount}>Next</button>
         <p>Viewing page {page} of {Math.ceil(totalCount / limit)}</p>
     
     </section>}
    
     </>
 )
-
 
 }
 
