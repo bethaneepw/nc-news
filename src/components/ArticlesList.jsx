@@ -20,6 +20,9 @@ useEffect(()=>{
     const topic = searchParams.get('topic')
     getArticles({page, limit, topic, sort, order})
     .then(({articles, total_count})=>{
+        if (articles.length === 0 && topic) {
+            setErrorMsg(`No articles found under the topic "${topic}"`)
+        }
         setArticlesToList(articles)
         setTotalCount(total_count)
     })

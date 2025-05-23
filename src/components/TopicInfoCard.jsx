@@ -1,8 +1,8 @@
-import { formatTopic } from "../../utils/utils";
+import { capitaliseFirstLetter } from "../../utils/utils";
 
 function TopicInfoCard ({topic}) {
 
-const formattedTitle = formatTopic(topic.slug)
+const formattedTitle = capitaliseFirstLetter(topic.slug)
 return (
     <>
     <h2>{formattedTitle}</h2>

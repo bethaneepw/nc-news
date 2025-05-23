@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticleById, patchArticleById } from "../../api";
-import { formatResponseInfo } from "../../utils/utils";
-import { useParams } from "react-router-dom";
+import { capitaliseFirstLetter, formatResponseInfo } from "../../utils/utils";
+import { ServerRouter, useParams } from "react-router-dom";
 import CommentsView from "./CommentsView";
 
 function ArticleViewCard () {
@@ -11,18 +11,20 @@ function ArticleViewCard () {
     const [isViewingComments, setIsViewingComments] = useState(false)
     const [hasVoted, setHasVoted] = useState(false)
     const [localVotes, setLocalVotes] = useState(0)
-    const [errorMsg, setErrorMsg] = useState(null)
+    const [errorVoteMsg, setErrorVoteMsg] = useState(null)
     const [isAddingComment, setIsAddingComment] = useState(false)
+    const [articleError, setArticleError] = useState(null)
 
     useEffect(()=>{
-        setErrorMsg(null)
+        setErrorVoteMsg(null)
         setIsLoading(true)
         getArticleById(article_id)
         .then((article) => {
             setCurrentArticle((current) => current = {...formatResponseInfo(article)})
         })
         .catch((err)=>{
-            console.log(err)
+            const {msg} = (JSON.parse(err.request.response))
+            setArticleError([err.request.status, capitaliseFirstLetter(msg)])
         })
         .finally(()=>{
             setIsLoading(false)
@@ -37,7 +39,7 @@ function ArticleViewCard () {
         .then((article) => {
         })
         .catch((err)=>{
-            setErrorMsg("Something went wrong. Your vote has not been counted.")
+            setErrorVoteMsg("Something went wrong. Your vote has not been counted.")
             console.log(err)
         })
     }
@@ -48,17 +50,18 @@ function ArticleViewCard () {
     )
     }
     
-return (<>
-<section className="article-container">
-    <h1>{currentArticle.title}</h1>
-    <img src={currentArticle.article_img_url}></img>
-    <div className="article-content-container"></div>
-    <h2>Written by {currentArticle.author}</h2>
-    <p>{currentArticle.body}</p>    
+return (<> {articleError ? <h1>{articleError[0] + " " + articleError[1]}</h1>
+
     
+    : <> 
+    <section className="article-container">
+        <h1>{currentArticle.title}</h1>
+        <img src={currentArticle.article_img_url}></img>
+        <h2>Written by {currentArticle.author}</h2>
+        <p>{currentArticle.body}</p>    
     <div className="vote-button-group">
         <p>{currentArticle.votes + localVotes} Votes</p>
-        {hasVoted ? errorMsg ? <p> {errorMsg} </p> : <p> Thanks for voting! </p>
+        {hasVoted ? errorVoteMsg ? <p> {errorVoteMsg} </p> : <p> Thanks for voting! </p>
         : <>
         <button id="votes-button" onClick={handleVote} value="1"> + </button>
         <button id="votes-button" onClick={handleVote} value="-1"> - </button>
@@ -82,7 +85,9 @@ return (<>
     <CommentsView article_id={currentArticle.article_id} comment_count={currentArticle.comment_count} isAddingComment={isAddingComment}/>
     </> 
     : <> </>}</section>
-</>)
+    </> }
+
+    </>)
 }
 
 export default ArticleViewCard;
