@@ -13,11 +13,13 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
    // const [totalCount, setTotalCount] = useState(comment_count)
    const [user] = useContext(UserContext)
    const [errorMsg, setErrorMsg] = useState(null)
+   const [page, setPage] = useState(1);
+   const [limit, setLimit] = useState(10);
     
     useEffect(()=>{
         setIsLoading(true)
         setErrorMsg(null)
-        getCommentsByArticleId(article_id)
+        getCommentsByArticleId({article_id, page, limit})
         .then((comments)=>{
             const arr = comments.map((comment) =>{
                 const obj = formatResponseInfo(comment)
@@ -34,10 +36,15 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
         .finally(()=>{
             setIsLoading(false)
         })
-    }, [])
+    }, [page, limit])
+
+    function handlePage(newPage) {
+        setPage(newPage)
+        
+    }
 
     return (
-        <> {isLoading ? <p>"Loading comments..."</p>: errorMsg ? <h1>{errorMsg}</h1>: <section>
+        <> {isLoading ? <p>Loading comments...</p> : errorMsg ? <h1>{errorMsg}</h1>: <section>
         <ul className="comments-container">
             {isAddingComment ? <PostCommentForm article_id={article_id} setCommentsList={setCommentsList}/> : <></>}
         {commentsList.map((comment)=>{
@@ -48,10 +55,11 @@ function CommentsView ({article_id, comment_count, isAddingComment}) {
             
         })}
         </ul>
+        <button onClick={() => handlePage(page - 1)} disabled={page===1}>Previous</button>
+        <button onClick={()=> handlePage(page + 1)} disabled={limit * page >= comment_count}>Next</button>
+        <p>Viewing Page {page} of {Math.ceil(comment_count / limit)}</p>
         </section>}
-        
         </>
-        
     )
 }
 

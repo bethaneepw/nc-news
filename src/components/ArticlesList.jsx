@@ -78,10 +78,12 @@ function handlePage(newPage) {
     
 return (
     <>
-    <div className="topic-button-group">
-    <Link to="/articles?topic=cooking">Cooking</Link>
-    <Link to="/articles?topic=coding">Coding</Link>
-    <Link to="/articles?topic=football">Football</Link>
+    <div className="topic-filter-group">
+        <ul>
+            <li><Link to="/articles?topic=cooking">Cooking</Link></li>
+            <li><Link to="/articles?topic=coding">Coding</Link></li>
+        <li> <Link to="/articles?topic=football">Football</Link></li>
+        </ul>
     </div>
 
     <div className="sort-button-group">
@@ -106,13 +108,12 @@ return (
     </div>
    
     {isLoading ? <p> Loading Articles...</p> : errorMsg ? <h1>{errorMsg}</h1> :
-    <section>
-        
+    <div>
 
         <ul >
             {articlesToList.map((article)=>{
                 return (
-                <li key={article.article_id} className="info-card">
+                <li key={article.article_id}>
                     <ArticleInfoCard articleToDisplay={article}/>
                 </li>)
                 
@@ -123,8 +124,7 @@ return (
         <button onClick={()=> handlePage(page + 1)} disabled={limit * page >= totalCount}>Next</button>
         <p>Viewing page {page} of {Math.ceil(totalCount / limit)}</p>
     
-    </section>}
-   
+    </div>}
     </>
 )
 

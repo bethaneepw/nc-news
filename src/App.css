@@ -1,65 +1,70 @@
-#root {
+ :root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background: whitesmoke;
+
+  /* CSS HEX */
+--thistle: #d5c3ceff;
+--cambridge-blue: #7fb685ff;
+--hookers-green: #426a5aff;
+--eggplant: #6c4b5eff;
+--rich-black: #0d1321ff;
 }
 
 .nav-bar {
+  border-radius: 25px;
+  background-color: var(--hookers-green);
   ul {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #30579e;
   }
 
   li {
-    display: inline;
+    display: inline-flex;
   }
 
   li a {
-  color: white;
-  padding: 14px 16px;
-  text-decoration: none;
- 
-}
-
-
-
-}
-
-
-.icon {
+  color: #BFEDC1;
+  padding: 4px;
+  }
+  
+  .icon {
   width: 24px;
   height: 24px;
-  color: rgb(255, 255, 255);
-  transition: color 0.2s ease;
+  color: #BFEDC1;
+  transition: color 0.5s ease;
   display: inline-block;
 }
 
 .link:hover .icon {
-  color: rgb(0, 0, 0) !important;
+  color: rgb(255, 255, 255);
 }
 
+}
 
 ul {
   list-style-type: none;
 }
 
 .info-card {
-  display: block;
-  width: 90%;
-  align-self: center;
-  text-align: left;
-  font-size: small;
-  border: 2px solid;
-  padding-left: 10px;
-  margin: 15px;
+  display: flex;
+  margin: 2%;
+  padding: 2%;
+  flex-flow: column wrap;
+  align-items: flex-start;
+
 }
 
 .info-card-title {
   font-weight: bold;
+  align-self: -1;
 }
 
 h1 {
@@ -96,11 +101,59 @@ h1 {
   display: flexbox;
   align-self: center;
   max-width: 90%;
-  
+
 }
 
 .vote-button-group {
   p {
     text-align: center;
   }
+}
+
+.topic-filter-group {
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+  }
+
+  li {
+    display: inline-flex;
+    padding-left: 5px;
+    padding-right: 5px;;
+  }
+
+}
+
+.sort-button-group {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+
+#home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: space-around;
+  flex-direction: row;
+}
+
+.home-title {
+  font-size: 3.2em;
+  line-height: 1.5;
+  margin: 15px;
+}
+
+.home-page-links {
+  order: 1;
+  align-items: center;
+  li {
+    display: inline-flex;
+    padding-left: 5px;
+    padding-right: 5px;;
+  }
+
 }
