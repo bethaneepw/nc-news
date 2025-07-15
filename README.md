@@ -3,6 +3,8 @@
 
 NC-News is a social news app where users can comment and vote on eachother's articles. Articles are dividied into topics and are user created from upvotes and downvotes using my own API (linked below). Users can also comment and vote on others comments.
 
+This project is ongoing - I'll be updating the styling and adding new functionality as I continue to learn!
+
 [View API](https://github.com/bethaneepw/nc-news-database/)
 
 Minimum Node version: v23.8.0
