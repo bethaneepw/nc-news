@@ -16,8 +16,8 @@ function NavBar () {
                     <Link to="/articles">View All</Link>        
                 </li>
                 <li key="submit">
-                    <Link to="/articles/submit" className="link" aria-label="Submit article">
-                    <SubmitIcon className="icon" style={{fill: "currentColor"}}/>
+                    <Link to="/articles/submit" className="link" aria-label="Submit article">Add New
+                    {/* <SubmitIcon className="icon" style={{fill: "currentColor"}}/> */}
                     </Link> 
                         
                 </li>

@@ -10,9 +10,7 @@ function Home () {
 
     useEffect(()=>{
         const page = 1;
-        const limit = 3;
-        // const sort = "created_at"
-        // const order = "DESC"
+        const limit = 4;
         getArticles({page, limit})
         .then(({articles, total_count})=>{
                if (articles.length === 0) {
@@ -28,11 +26,9 @@ function Home () {
         })
     }, [])
 
-
-
 return (
     <div className="home-page">
-        <h1 className="home-title">AAA</h1>
+        <h1 className="home-title">NC News</h1>
         <ul className="home-page-links">
             <li>
             <Link to="/articles">View All Articles</Link>
@@ -42,10 +38,10 @@ return (
             </li>
         </ul>
         <h2>Recently Added</h2>
-        <ul>
+        <ul className="articles-view-list">
             {recentArticles.map((article)=>{
                 return (
-                    <li key={article.article_id} className="info-card">
+                    <li key={article.article_id}>
                         <ArticleInfoCard articleToDisplay={article}/>
                     </li>
                 )

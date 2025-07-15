@@ -110,7 +110,7 @@ return (
     {isLoading ? <p> Loading Articles...</p> : errorMsg ? <h1>{errorMsg}</h1> :
     <div>
 
-        <ul >
+        <ul className="articles-view-list">
             {articlesToList.map((article)=>{
                 return (
                 <li key={article.article_id}>

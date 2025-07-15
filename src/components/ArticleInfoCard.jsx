@@ -5,13 +5,16 @@ function ArticleInfoCard ({articleToDisplay}) {
 
     const formattedArticle = formatResponseInfo(articleToDisplay)
     return (
-        <div className="article-info-card">
-            <p className="info-card-title">{formattedArticle.title}</p>
-            <p className="info-topic">{formattedArticle.topic}</p>
-            <p>Posted: {formattedArticle.created_at}<br/>{formattedArticle.comment_count} comments <br/>{formattedArticle.votes} votes</p>
-            <p>{formattedArticle.author}</p>
-            <Link to={`/articles/${formattedArticle.article_id}`}><button>View</button></Link>
-            
+        <div className="article-info-wrapper">
+            <Link to={`/articles/${formattedArticle.article_id}`}>
+            <img className="article-info-img" src={articleToDisplay.article_img_url}></img>
+            <h1 className="article-info-title">{formattedArticle.title}</h1>
+            {/* <p className="article-info-topic">{formattedArticle.topic}</p>
+            <p className="article-info-posted">Posted: {formattedArticle.created_at}</p>
+            <p className="article-info-comment-count">{formattedArticle.comment_count} comments</p>
+            <p className="article-info-votes">{formattedArticle.votes} votes</p>
+            <p className="article-info-author">{formattedArticle.author}</p> */}
+            </Link>
         </div>
         
     )
